@@ -202,7 +202,7 @@ lim (F (x:xs,0)) = x
 lim (F (0:xs,n)) = lim (F (xs,n-1))
 lim (F (xs,n)) | n < 0 = 0
                | head xs > 0 = 1/0
-               | head xs < 0 = -1/0
+               | head xs < 0 = -(1/0)
 
 -- the same as ∇ in fluxions.txt
 diff :: (Eq n, Num n, Fractional n, Ord n) => (Fluxion n -> Fluxion n) -> n -> Maybe n
@@ -231,3 +231,29 @@ divide (F (xs,n) :/ F ([x],0)) = Just (F (map (/ x) xs,n))
 divide (F (xs,n) :/ F (ys,0)) | last ys /= 0 = Nothing
                               | otherwise = divide (F (xs,n) :/ F (init ys,0))
 divide (F (xs,n) :/ F (ys,m)) = divide (F (xs,n-m) :/ F (ys,0))
+
+
+-- Adapted code from error-code-864g:
+
+root_newton x f f' tolerance 0 = 0
+root_newton x f f' tolerance n = if abs (- (f x / f' x)) < tolerance
+        then x - f x/f' x
+        else root_newton (x - f x/f' x) f f' tolerance (n-1)
+
+root1 = root_newton 1 (\x -> x^2-x-1) (\x -> 2*x - 1) (1/10^20) 1000
+
+rootNewton :: (Fractional n, Ord n) => n -> (Fluxion n -> Fluxion n) -> n -> Int -> Maybe n
+rootNewton x f tolerance 0 = Just 0
+rootNewton x f tolerance n = case diff f x of
+    Just z -> if abs (-(lim (f x')/z)) < tolerance then Just (x - (lim (f x')/z)) else rootNewton (x - (lim (f x')/z)) f tolerance (n-1)
+    Nothing -> Nothing
+    where x' = F ([x],0)
+
+root :: (Fractional a, Ord a) => Maybe a
+root = rootNewton 1 (\x -> x^2-x-1) (1/10^20) 1000
+
+rootDifference :: (Eq a, Fractional a, Ord a) => a -> (Fluxion a -> Fluxion a) -> (a -> a) -> a -> Int -> Maybe a
+rootDifference x f f' tol n = case rootNewton x f tol n of
+        Just x -> Just (x - root_newton x (lim . f . \x -> F ([x],0)) f' tol n)
+        Nothing -> Nothing
+
