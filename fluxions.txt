@@ -1,5 +1,5 @@
 fluxions /flʌksij+on+z/ [flʌk.si.jɒnz] are inspired by isaac newton 's concept of 
-"fluxions" /flʌks+jən+z/ [flʌk.ʃ(ə)nz]
+"fluxions" /flʌks+jən+z/ [flʌk.ʃ(ə)nz] (yes I'm just mispronouncing a word <3)
 they are the elements of a totally ordered infinite dimentional vector space over the reals,
 written with powers of the constant ε (and ω) differentiating its components,
 where ε is a number such that 
@@ -115,5 +115,5 @@ https://docs.google.com/spreadsheets/d/1SlwYowzaqBGR62lomQKOvZ6IodOgqaas_EaylvEE
 
 ---
 
-here's a playlist of videos that fluxions help you to have a deeper understanding of:
+here's a playlist of videos that fluxions help you to have a deeper understanding of imo:
 https://youtube.com/playlist?list=PLpd7l38mvDXfyE-zmw2csetDhgDECd64n&si=EBUE1nkMUQ9Li1qh
