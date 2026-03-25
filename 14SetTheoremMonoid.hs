@@ -118,7 +118,7 @@ iki     (idempotent)
 kiki    (idempotent)
 ikikiki (idempotent)
 
-kik     (= kik<>kik<>kik)
+kik     (= kik<>kik<>kik) ("tridempotent")
 ikikik  (= ikikik<>ikikik<>ikikik)
 ikiki   (= ikiki<>ikiki<>ikiki)
 kikiki  (= kikiki<>kikiki<>kikiki)
