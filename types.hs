@@ -6,7 +6,7 @@ zipple (x:xs) [] = [x]
 zipple (x:xs) (y:ys) = x : y : zipple xs ys
 
 maybe :: Type -> Type
-maybe u = addNew 0 u
+maybe = addNew 0
 
 addNew :: Int -> Type -> Type 
 addNew n u | show n `elem` toList u = addNew (n-1) u
@@ -27,10 +27,10 @@ removeEdges xs = aux True xs
     where
         aux :: Bool -> [a] -> [a]
         aux True [] = []
-        aux True (x:y:[]) = []
+        aux True [x,y] = []
         aux True (x:xs) = aux False xs
         aux False [] = []
-        aux False (x:y:[]) = [x]
+        aux False [x,y] = [x]
         aux False (x:xs) = x : aux False xs
 
 data Path = L | R | Found | NotFound
