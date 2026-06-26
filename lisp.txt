@@ -1,0 +1,10 @@
+<x y
+(<a b a> <True
+(<a b b> <False
+(<bool a b (a b bool)> <if
+\listToString (<[a b] 
+    (a (a (b listToString) ???) (b [] =) if)
+> <ListToString
+(([x { < } y] ListToString) ([x { >= } y] ListToString) (x y <) if)
+>)/>)>)>)>
+
