@@ -1,7 +1,3 @@
-import GHC.Integer (eqInteger, integerToInt)
-import GHC.Real (Integral)
-import Prelude (Fractional)
-
 f :: Fractional a => a -> a -> a
 f a b = a + (1 / b)
 
@@ -18,7 +14,7 @@ parse = foldr f 0
 fracToList :: t1 -> [a]
 fracToList frac = boundedFracToList frac 1
 
-findVal :: t1 -> t2 -> t3
+findVal :: Integral t1 => t1 -> t1 -> Integer
 findVal frac window = toInteger (div frac window)
 
 boundedFracToList :: t1 -> t2 -> [a]
