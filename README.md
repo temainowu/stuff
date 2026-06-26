@@ -24,7 +24,7 @@ Game playing/solving programs
 
 two players can play the game Quoridor using this
 
-###### cbs
+##### cbs
 
 unfinished solver for cluesbysam puzzles
 
