@@ -1,9 +1,9 @@
 import Language.Haskell.TH (safe)
 import Distribution.Simple.Utils (xargs)
-data R = C | P | S
+data R = C | P | S -- is this child-parent-sibling???
     deriving Show
-data G = M | F
-data A = Y | O
+data G = M | F -- Binary Gender Bay Bee
+data A = Y | O -- Age Difference
 newtype Relation = R (Maybe G,R)
 newtype K = K ([Relation],Maybe (A,Int))
 
@@ -26,15 +26,20 @@ instance Show K where
     show (K (r:xs,Just (a,n))) = show (K (xs,Just (a,n-1))) ++ show r
 
 instance Read K where
+    readsPrec :: Int -> ReadS K
+    readsPrec = 0
+    {-
     read x = map read' (f x)
-    read' :: [String] -> K
-    read' ()
+        where
+        read' :: [String] -> K
+        read' [] = K ([], Nothing)
+    -}
 
 toHead :: (a -> a) -> [a] -> [a]
 toHead f (x:xs) = f x : xs
 
 f :: String -> [String]
-f (x:xs) | isUpper x = x:f xs 
+f (x:xs) | isUpper x = x : f xs 
          | otherwise = toHead (x:) f xs
 
 gen :: K -> Int
@@ -50,7 +55,7 @@ ego :: K
 ego = K ([],Nothing)
 
 addRel :: R -> K -> K
-addRel r (K (xs,a)) = K ((R (xs++[])),a) 
+addRel r (K (xs,a)) = K (R (xs ++ []), a)
 
 zh :: K -> String
 zh (K ([R (Nothing,P),R (Just M,C)],Just (O,0))) = "哥哥"
