@@ -182,20 +182,20 @@ doMove m g@(Game w p b)
         | isDiagonal m, check2 d1 d2 || check2 d2 d1     -> movePlayer g c (2,m)
         | otherwise                                      -> g
     | otherwise = g
-    where 
+    where
         -- "b ! c == Cross" and the two check0s ensure that the three locations where the wall is to be placed are empty
         check0 :: (Move -> Move) -> Bool -- check if move is valid wall placement
         check0 mtf = b ! shift c (1,mtf m) == Gap -- must not be a wall where wall is to be placed
 
         check1 :: Square -> Bool -- check if move is valid straight move
-        check1 s = 
-            isStraight m 
+        check1 s =
+            isStraight m
             && b ! shift c (2,m) == s -- must be a certain square at destination
             && b ! shift c (1,m) == Gap -- must not be a wall in direction of move
 
         check2 :: (Move -> Move) -> (Move -> Move) -> Bool -- check if move is valid diagonal move
-        check2 mtf1 mtf2 = 
-            isStraight m 
+        check2 mtf1 mtf2 =
+            isStraight m
             && b ! shift c (2,mtf1 m)                    == J (other p) -- must be next to other player
             && b ! shift c (1,mtf1 m)                    == Gap -- must not be a wall between players
             && b ! shift (shift c (2,mtf1 m)) (1,mtf2 m) == Gap -- must not be a wall next to other player in direction of move
@@ -233,7 +233,7 @@ isMove x = x `elem` map (show . (toEnum :: Int -> Move)) moveInts
         sevens n = take 64 ([n..n+7] ++ sevens (n+10))
 
 putStrLns :: [String] -> IO ()
-putStrLns xs = foldr (>>) (return ()) (map putStrLn xs)
+putStrLns = mapM_ putStrLn
 
 looksLike :: String -> Char -> Bool
 looksLike [] _ = False
@@ -253,11 +253,11 @@ startCoors One = (0,16)
 startCoors Two = (16,16)
 -}
 
-main :: IO (Save)
+main :: IO Save
 main = play (Save [])
 
-play :: Save -> IO (Save)
-play (Save []) = 
+play :: Save -> IO Save
+play (Save []) =
     putStrLns [
         "\nWelcome to Quoridor!",
         "type 'help' for help\n"
@@ -270,11 +270,11 @@ play (Save []) =
         (zipplicate17 Square Gap)
         (zipplicate17 Gap Cross)
     ) >>= \gs -> return (Save gs)
-play (Save (g:gs)) = 
+play (Save (g:gs)) =
     putStrLns [
         "\nWelcome to Quoridor!",
         "type 'help' for help\n"
-        ] >> (loop gs g) >>= \gs -> return (Save gs)
+        ] >> loop gs g >>= \gs -> return (Save gs)
 
 loop :: [Game] -> Game -> IO [Game]
 loop gs g =
@@ -285,19 +285,18 @@ loop gs g =
 
             look :: String -> IO [Game]
             look m | m `looksLike` 'q' = return (g:gs)
-                   | m `looksLike` 'h' = 
+                   | m `looksLike` 'h' =
                      putStrLns [
-                        "numbers '1'-'4' & '6'-'9' represent moves in their direction on the numpad", 
-                        "'5xy' places a vertical wall at coordinates (x,y)", 
+                        "numbers '1'-'4' & '6'-'9' represent moves in their direction on the numpad",
+                        "'5xy' places a vertical wall at coordinates (x,y)",
                         "'-xy' places a horizontal wall at coordinates (x,y)",
                         "'Undo' undoes the last move",
-                        "'Help' shows this help", 
+                        "'Help' shows this help",
                         "'Quit' quits game"
                         ] >> getInput
-                   | m `looksLike` 'u' = 
-                        case gs of 
+                   | m `looksLike` 'u' =
+                        case gs of
                             (g_:gs_) -> loop gs_ g_
                             []       -> putStrLn "nothing to undo" >> getInput
                    | isMove m          = loop (g:gs) (move g (read m))
                    | otherwise         = getInput
-            

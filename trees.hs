@@ -16,7 +16,7 @@ instance Num (Tree u) where
     fromInteger x = T
     negate x = x
 
-data PrettyList a = PrettyList [a]
+newtype PrettyList a = PrettyList [a]
 
 instance Show a => Show (PrettyList a) where
     show (PrettyList []) = []
