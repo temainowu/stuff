@@ -25,9 +25,9 @@ type spec N = NP
 -- Helper Functions
 
 apply :: Eq a => a -> [(a,b)] -> b
-apply ((x,y):xs) z
+apply z ((x,y):xs)
   | x == z = y
-  | otherwise = apply xs z
+  | otherwise = apply z xs
 
 swap :: a -> b -> (b, a)
 swap x y = (y, x)
@@ -71,7 +71,6 @@ most a (x : xs)
     sortedTail = most a xs
 
 -- Nominals
-{-
 data E = A | B | C | D | E
   deriving (Show)
 
@@ -83,7 +82,7 @@ type N = [E]
 type V = N -> N -> Bool
 
 type A = E -> Int
--}
+
 -- type I (a -> b -> c) d = (a -> b -> c) -> a -> b -> d
 
 -- type P = a -> b -> Bool
