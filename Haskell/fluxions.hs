@@ -202,6 +202,22 @@ lim (F (xs,n)) | n < 0 = 0
                | head xs > 0 = 1/0
                | head xs < 0 = -1/0
 
+{-
+kanskje :: (a -> b) -> Maybe a -> Maybe b
+kanskje f (Just x) = Just (f x)
+kanskje _ Nothing = Nothing
+
+-- the same as ∇ in fluxions.txt
+diff' :: (Eq n, Num n, Fractional n, Ord n) => (Fluxion n -> Fluxion n) -> n -> Maybe n
+diff' f = kanskje lim . divide . raise (:/) (d f) (d id)
+-- diff' f n = kanskje lim (divide (d f n :/ F ([0,1],0)))
+
+-- diff' (\x -> 2^x) 2
+-- kanskje lim (divide (d (\x -> 2^x) 2 :/ F ([0,1],0)))
+-- kanskje lim (divide ((2^(F ([2],0) + F ([0,1],0)) - 2^(F ([2],0)) ) :/ F ([0,1],0)))
+-- kanskje lim (divide ((2^(F ([2,1],0)) - 2^(F ([2],0)) ) :/ F ([0,1],0))) 2
+-}
+
 -- the same as ∇ in fluxions.txt
 diff :: (Eq n, Num n, Fractional n, Ord n) => (Fluxion n -> Fluxion n) -> n -> Maybe n
 diff f = fmap lim . divide . raise (:/) (d f) (d id)
