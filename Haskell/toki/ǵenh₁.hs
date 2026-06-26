@@ -1,12 +1,10 @@
-import Language.Haskell.TH (safe)
-import Distribution.Simple.Utils (xargs)
 import Data.Char
 
 data R = C | P | S -- is this child-parent-sibling???
     deriving Show
 data G = M | F -- Binary Gender Bay Bee
 data A = Y | O -- Age Difference
-newtype Relation = R (Maybe G,R)
+newtype Relation = R (Maybe G,R) -- why maybe G?? func from K to String could just be underspecified??
 newtype K = K ([Relation],Maybe (A,Int))
 
 instance Show A where
