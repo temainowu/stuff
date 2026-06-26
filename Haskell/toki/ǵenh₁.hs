@@ -1,5 +1,7 @@
 import Language.Haskell.TH (safe)
 import Distribution.Simple.Utils (xargs)
+import Data.Char
+
 data R = C | P | S -- is this child-parent-sibling???
     deriving Show
 data G = M | F -- Binary Gender Bay Bee
@@ -25,10 +27,11 @@ instance Show K where
     show (K (xs,Just (a,0))) = show (K (xs,Nothing)) ++ show a
     show (K (r:xs,Just (a,n))) = show (K (xs,Just (a,n-1))) ++ show r
 
+{-
 instance Read K where
     readsPrec :: Int -> ReadS K
-    readsPrec = 0
-    {-
+    readsPrec d =
+    
     read x = map read' (f x)
         where
         read' :: [String] -> K
@@ -38,9 +41,13 @@ instance Read K where
 toHead :: (a -> a) -> [a] -> [a]
 toHead f (x:xs) = f x : xs
 
+{-
+-- idk what this is supposed to do:
+
 f :: String -> [String]
 f (x:xs) | isUpper x = x : f xs 
          | otherwise = toHead (x:) f xs
+-}
 
 gen :: K -> Int
 gen (K ([],_)) = 0
@@ -54,8 +61,13 @@ check (K (xs,Just (_,n))) | n < 0 || n >= length xs = False
 ego :: K
 ego = K ([],Nothing)
 
+{-
 addRel :: R -> K -> K
 addRel r (K (xs,a)) = K (R (xs ++ []), a)
+-}
 
 zh :: K -> String
 zh (K ([R (Nothing,P),R (Just M,C)],Just (O,0))) = "哥哥"
+zh (K ([R (Nothing,P),R (Just M,C)],Just (Y,0))) = "弟弟"
+zh (K ([R (Nothing,P),R (Just F,C)],Just (O,0))) = "姐姐"
+zh (K ([R (Nothing,P),R (Just F,C)],Just (Y,0))) = "妹妹"
