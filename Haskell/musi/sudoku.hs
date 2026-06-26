@@ -3,7 +3,7 @@
 
 import Data.List (sort,nub,(\\),transpose,genericLength)
 import Data.String (lines,unlines)
-import Test.QuickCheck
+-- import Test.QuickCheck
 
 -- Representing Sudoku puzzles
 
