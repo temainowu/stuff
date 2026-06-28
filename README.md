@@ -54,7 +54,7 @@ Python Programs;
 
 ### ca
 
-1 dimesional cellular automata
+1 dimesional cellular automata. Pretty triangles.
 
 ### clong
 
@@ -65,11 +65,11 @@ This is not generalised - the rules are hard coded.
 
 ##### derivative
 
-Probably a program that can derive polynomials by approximating infinitessimals with sufficiently small quantities.
+A program that is supposed to derive polynomials by approximating infinitessimals with sufficiently small quantities. I don't know what type and form I wanted the input function as so I don't know how to use it.
 
-##### prime gen _
+##### prime gen 2
 
-probably generates primes
+generates primes
 
 # c+-
 
