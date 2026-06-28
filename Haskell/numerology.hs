@@ -197,7 +197,10 @@ checksmoosh2_ono = PrettyList (filter (not . snd) (map (\x -> (x, (nodups . smoo
 -- oh ofc it is
 -- fastest square computing program
 squaresEfficient :: [Int]
-squaresEfficient = map fst (filter (not . snd) (map (\x -> (x, (nodups . smoosh2 . allfactors) x)) [1 ..]))
+squaresEfficient = map fst (filter (not . snd) (map (\x -> (x, (nodups . smoosh2 . allfactors) x)) [0 ..]))
+
+square :: Int -> Int
+square n = squaresEfficient !! (n - 2)
 
 naturally :: [Int]
 naturally = map (fsqrt . fst) (filter (not . snd) (map (\x -> (x, (nodups . smoosh2 . allfactors) x)) [1 ..]))
