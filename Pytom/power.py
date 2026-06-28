@@ -19,5 +19,5 @@ def invpow(c=pow()):
     return c**(1/2)
 
 
-# print(pow())
+print(pow())
 print(invpow())
